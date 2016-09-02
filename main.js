@@ -19,7 +19,7 @@ function getServer(func) {
   })
 }
 
-  function checkArray(arr) {
+function checkArray(arr) {
   if(arr.length === 6){
     console.log(arr);
     arr = [];
@@ -55,7 +55,10 @@ let callback = console.log;
 
 let callback1 = function(param){
   arr.push(param);
-  checkArray(arr);
+  if(arr.length === 6){
+    console.log(arr);
+    arr = [];
+  }
 };
 
 function firstTask(){
