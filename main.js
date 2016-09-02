@@ -1,3 +1,4 @@
+'use strict'
 var obj = {
   name: "Vasya",
   number: "12",
@@ -6,8 +7,20 @@ var obj = {
 
 var arr = [];
 
-function checkArray(arr) {
-  if(arr.length === 3){
+function getServer(func) {
+  let requestPromise = fetch('https://test-api.javascript.ru/v1/ssuvorov/tasks');
+  requestPromise.then((response) => {
+    let dataPromise = response.json();
+    dataPromise.then((data) => {
+      for (let i = 0; i < data.length; i++) {
+        func('title : ' + data[i].title)
+      }
+    })
+  })
+}
+
+  function checkArray(arr) {
+  if(arr.length === 6){
     console.log(arr);
     arr = [];
   }
@@ -49,19 +62,23 @@ function firstTask(){
   getName(callback);
   getNumber(callback);
   getColor(callback);
+  getServer(callback);
 }
 
 function secondTask() {
   getName(callback1);
   getNumber(callback1);
   getColor(callback1);
+  getServer(callback1);
 }
 
 function thirdTask() {
   getName(function(objName) {
     getNumber(function(objNumber) {
       getColor(function(objColor){
-        console.log(objName, objNumber, objColor);
+        getServer(function(title){
+          console.log(objName, objNumber, objColor, title);
+        })
       })
     })
   });
