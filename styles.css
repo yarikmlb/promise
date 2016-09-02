@@ -1,0 +1,14 @@
+.withoutPromise {
+  margin: 50px 0;
+}
+.withoutPromise button {
+  background: red;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+.withPromise button {
+  background: green;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #ffffff;
+}

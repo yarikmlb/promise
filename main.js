@@ -67,7 +67,18 @@ function thirdTask() {
   });
 }
 
+function fourthTask() {
+
+}
+
+function fifthTask() {
+  
+}
+
 var tasks = document.querySelectorAll('button');
 tasks[0].addEventListener('click', firstTask);
 tasks[1].addEventListener('click' , secondTask);
 tasks[2].addEventListener('click' , thirdTask);
+tasks[3].addEventListener('click' , firstTask);
+tasks[4].addEventListener('click' , fourthTask);
+tasks[5].addEventListener('click' , fifthTask);
