@@ -21,3 +21,15 @@ body {
 .withPromise h2 {
   color: green;
 }
+.withCustomPromise {
+  margin: 50px 0;
+}
+.withCustomPromise h2 {
+  color: blue;
+}
+.withCustomPromise button {
+  background: blue;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #fff;
+}

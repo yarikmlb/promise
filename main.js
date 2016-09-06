@@ -159,11 +159,25 @@ function fifthTask() {
   });
 }
 
-function sixth() {
+function sixthTask() {
   Promise.all([getAnotherName(), getAnotherNumber(), getAnotherColor(), getAnotherServer()]).then(values => {
     let str = values.join('\n');
     firstExample(str);
   });
+}
+
+//custom promise
+
+function seventhTask() {
+  
+}
+
+function eighthTask() {
+  
+}
+
+function ninthTask() {
+  
 }
 
 var tasks = document.querySelectorAll('button');
@@ -178,4 +192,10 @@ tasks[2].addEventListener('click' , thirdTask);
 
 tasks[3].addEventListener('click' , fourthTask);
 tasks[4].addEventListener('click' , fifthTask);
-tasks[5].addEventListener('click' , sixth);
+tasks[5].addEventListener('click' , sixthTask);
+
+// buttons with custom promise
+
+tasks[6].addEventListener('click' , seventhTask);
+tasks[7].addEventListener('click' , eighthTask);
+tasks[8].addEventListener('click' , ninthTask);
