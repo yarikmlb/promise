@@ -97,6 +97,10 @@ function getAnotherServer() {
   return promise;
 }
 
+// functions for examples with custom promise
+
+
+
 // callbacks
 
 let firstExample = console.log;
@@ -166,10 +170,10 @@ function sixthTask() {
   });
 }
 
-//custom promise
+// call functions with custom promise
 
 function seventhTask() {
-  
+
 }
 
 function eighthTask() {
