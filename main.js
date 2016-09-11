@@ -103,7 +103,7 @@ var PENDING = 0;
 var FULFILLED = 1;
 var REJECTED = 2;
 
-function CustomPromise(fn) {
+function MyPromise(fn) {
   // store state which can be PENDING, FULFILLED or REJECTED
   var state = PENDING;
 
@@ -195,7 +195,7 @@ function CustomPromise(fn) {
 
   this.then = function (onFulfilled, onRejected) {
     var self = this;
-    return new CustomPromise(function (resolve, reject) {
+    return new MyPromise(function (resolve, reject) {
       return self.done(function (result) {
         if (typeof onFulfilled === 'function') {
           try {
@@ -222,6 +222,72 @@ function CustomPromise(fn) {
   };
 
   doResolve(fn, resolve, reject);
+
+
+  MyPromise.all = function (arrPromise) {
+    var arr = [];
+    var ready = new MyPromise((resolve) => { return resolve(null)});
+
+    arrPromise.forEach(function (promise) {
+      ready = ready.then(function () {
+        return promise;
+      }).then(function (value) {
+        arr.push(value);
+      });
+    });
+
+    return ready.then(function () { return arr; });
+  }
+}
+
+function getCustomName() {
+  let promise = new MyPromise((resolve) => {
+      let name = "Alla";
+  let time = getRandomTime();
+  setTimeout (() => {
+    resolve('Name: ' + name);
+}, time);
+});
+  return promise;
+}
+
+function getCustomNumber() {
+  let promise = new MyPromise((resolve) => {
+      let number = "27";
+  let time = getRandomTime();
+  setTimeout(() => {
+    resolve('Number: ' + number);
+}, time);
+});
+  return promise;
+}
+
+function getCustomColor() {
+  let promise = new MyPromise((resolve) => {
+      let color = "yellow";
+  let time = getRandomTime();
+  setTimeout (() => {
+    resolve('Color: ' + color);
+}, time);
+});
+  return promise;
+}
+
+function getCustomServer() {
+  let promise = new MyPromise((resolve) => {
+      let arr =[];
+  let requestPromise = fetch('https://test-api.javascript.ru/v1/ssuvorov/tasks');
+  requestPromise.then((response) => {
+    let dataPromise = response.json();
+  dataPromise.then((data) => {
+    for (let i = 0; i < data.length; i++) {
+    arr.push(data[i].title);
+  }
+  resolve('title : ' + arr)
+})
+})
+});
+  return promise;
 }
 
 // callbacks
@@ -237,6 +303,19 @@ let secondExample = function(param){
 };
 
 function checkArray(arr) {
+  let str = arr.join('\n');
+  console.log(str);
+}
+
+let thirdExample = function(param){
+  arr.push(param);
+  if(arr.length === 4){
+    checkCustomArray(arr);
+    arr = [];
+  }
+};
+
+function checkCustomArray(arr) {
   let str = arr.join('\n');
   console.log(str);
 }
@@ -296,15 +375,31 @@ function sixthTask() {
 // call functions with custom promise
 
 function seventhTask() {
-
+  getCustomColor().then(firstExample);
+  getCustomName().then(firstExample);
+  getCustomNumber().then(firstExample);
+  getCustomServer().then(firstExample);
 }
 
 function eighthTask() {
-  
+  getCustomColor().then(thirdExample);
+  getCustomName().then(thirdExample);
+  getCustomNumber().then(thirdExample);
+  getCustomServer().then(thirdExample);
 }
 
 function ninthTask() {
-  
+  let arrPromise = [getCustomName(), getCustomNumber(), getCustomColor(), getCustomServer()];
+
+  MyPromise.all(arrPromise).then((promiseArray) => {
+    promiseArray.forEach((item) => {
+      if (typeof item === 'object') {
+        item.forEach((elem) => { console.log(elem)});
+      } else {
+        console.log(item);
+      }
+    });
+  });
 }
 
 var tasks = document.querySelectorAll('button');
